@@ -3,12 +3,14 @@
 import { useFetcher, useLoaderData } from "react-router-dom";
 import { getOrder } from "../../services/apiRestaurant";
 import OrderItem from "./OrderItem";
+
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
 } from "../../utils/helpers";
 import { useEffect } from "react";
+import UpdateOrder from "./updateOrder";
 
 function Order() {
   const order = useLoaderData();
@@ -50,7 +52,6 @@ function Order() {
           </span>
         </div>
       </div>
-
       <div className="flex items-center justify-between flex-wrap gap-2 bg-stone-200 py-5 px-6">
         <p className="font-medium">
           {deliveryIn >= 0
@@ -86,6 +87,7 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+      {!priority && <UpdateOrder order={order} />}
     </div>
   );
 }
